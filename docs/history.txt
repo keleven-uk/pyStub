@@ -1,0 +1,24 @@
+V2021.1
+
+    basic program completed.
+
+
+    config.toml
+	LICENCE.txt
+	README.md
+	requirements.txt
+	data\
+	  |  pyStub.log		[logging file,  not git tracked]
+	docs\
+	  |  history.txt
+	Lib\
+	  |  __init__.py
+	  |  myConfig.py
+	  |  myLicense.py
+	  |  myLogger.py
+	  |  myTimer.py
+	  	 utils\
+           |  __init__.py
+           |  stubUtils.py
+	resources\
+	  |  tea.icon

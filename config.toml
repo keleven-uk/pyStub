@@ -1,10 +1,10 @@
 #   Configure files for pyStub.py
 #
 #
-#   November 2021    (c) Kevin Scott
+#   November 2021-23    (c) Kevin Scott
 
 [INFO]
-myVERSION = "2021.1"
+myVERSION = "2023.2"
 myNAME = "pyStub"
 
 [APPLICATION]

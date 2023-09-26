@@ -1,12 +1,12 @@
 ###############################################################################################################
-#    myConfig.py    Copyright (C) <2020>  <Kevin Scott>                                                       #
+#    myConfig.py    Copyright (C) <2020-23>  <Kevin Scott>                                                       #
 #                                                                                                             #
 #    A class that acts has a wrapper around the configure file - config.toml.                                 #
 #    The configure file is first read, then the properties are made available.                                #
 #    The configure file is currently in toml format.                                                          #
 #                                                                                                             #
 ###############################################################################################################
-#    Copyright (C) <2020>  <Kevin Scott>                                                                      #
+#    Copyright (C) <2020-23>  <Kevin Scott>                                                                      #
 #                                                                                                             #
 #    This program is free software: you can redistribute it and/or modify it under the terms of the           #
 #    GNU General Public License as published by the Free Software Foundation, either Version 3 of the         #
@@ -22,7 +22,8 @@
 ###############################################################################################################
 
 import toml
-import colorama
+
+from src.console import console
 
 
 class Config():
@@ -45,34 +46,36 @@ class Config():
             with open(self.FILE_NAME, "r") as configFile:       # In context manager.
                 self.config = toml.load(configFile)             # Load the configure file, in toml.
         except FileNotFoundError:
-            print(f"{colorama.Fore.RED}Configure file not found. {colorama.Fore.RESET}")
-            print(f"{colorama.Fore.YELLOW}Writing default configure file. {colorama.Fore.RESET}")
+            console.print("Configure file not found.", "warning")
+            console.print("Writing default configure file.", "warning")
+            console,print("Please check config values.", "warning")
             self._writeDefaultConfig()
-            print(f"{colorama.Fore.GREEN}Running program with default configure settings. {colorama.Fore.RESET}")
+            console.print("Running program with default configure settings.", "warning")
         except toml.TomlDecodeError:
-            print(f"{colorama.Fore.RED}Error reading configure file. {colorama.Fore.RESET}")
-            print(f"{colorama.Fore.YELLOW}Writing default configure file. {colorama.Fore.RESET}")
+            console.print("Configure file can't be read.", "warning")
+            console.print("Writing default configure file.", "warning")
+            console,print("Please check config values.", "warning")
             self._writeDefaultConfig()
-            print(f"{colorama.Fore.GREEN}Running program with default configure settings. {colorama.Fore.RESET}")
+            console.print("Running program with default configure settings.", "warning")
 
     @property
     def NAME(self):
         """  Returns application name.
         """
-        return self.config['INFO']['myNAME']
+        return self.config["INFO"]["myNAME"]
 
     @property
     def VERSION(self):
         """  Returns application Version.
         """
-        return self.config['INFO']['myVERSION']
+        return self.config["INFO"]["myVERSION"]
 
 
     @property
     def NOTIFICATION(self):
         """  Returns the [system tray] Notification marker.
         """
-        return self.config['APPLICATION']['notification']
+        return self.config["APPLICATION"]["notification"]
 
 
     def _writeDefaultConfig(self):
@@ -81,10 +84,10 @@ class Config():
         """
         config = dict()
 
-        config['INFO'] = {'myVERSION': '2020.1',
-                          'myNAME'   : 'pyStub'}
+        config["INFO"] = {"myVERSION": "2020.1",
+                          "myNAME"   : "pyStub"}
 
-        config['APPLICATION'] = {'notification': True}
+        config["APPLICATION"] = {"notification": True}
 
 
         st_toml = toml.dumps(config)

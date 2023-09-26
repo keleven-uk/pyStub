@@ -1,9 +1,9 @@
 ###############################################################################################################
-#    duplicateUtils.py   Copyright (C) <2020-2021>  <Kevin Scott>                                             #                                                                                                             #                                                                                                             #
+#    duplicateUtils.py   Copyright (C) <2020-2023>  <Kevin Scott>                                             #                                                                                                             #                                                                                                             #
 #    A number of helper and utility functions                                                                 #
 #                                                                                                             #
 ###############################################################################################################
-#    Copyright (C) <2020-2021>  <Kevin Scott>                                                                 #
+#    Copyright (C) <2020-2023>  <Kevin Scott>                                                                 #
 #                                                                                                             #
 #    This program is free software: you can redistribute it and/or modify it under the terms of the           #
 #    GNU General Public License as published by the Free Software Foundation, either Version 3 of the         #
@@ -20,6 +20,8 @@
 
 import os
 
+from src.console import console
+
 ######################################################################################## loadExplorer() ######
 def loadExplorer(logger):
     """  Load program working directory into file explorer.
@@ -31,13 +33,16 @@ def loadExplorer(logger):
     exit(0)
 
 
-def logTextLine(textLine, textFile):
-    """  if the textFile is set, then write the line of text to that file, else print to screen.
-
-         textLine needs to be a string, for f.write - NOT a path.
+########################################################################################### logPrint() #######
+def logPrint(logger, verbose, message, style):
+    """  If a logger is supplied, log message.
+         If screen is True, print message to screen.
     """
-    if textFile:
-        with open(textFile, encoding='utf-8', mode="a") as f:     # Open in amend mode, important.
-            f.write(textLine + "\n")
-    else:
-        print(textLine)
+    if logger:
+        logger.info(message)
+
+    if verbose:
+        if style == "warning":
+            console.log(f"{message}", style="warning")
+        else:
+            console.log(f"{message}", style="info")

@@ -1,10 +1,10 @@
 ###############################################################################################################
-#    myTimer.py   Copyright (C) <2020-2021>  <Kevin Scott>                                                         #
+#    myTimer.py   Copyright (C) <2020-2023>  <Kevin Scott>                                                    #
 #                                                                                                             #
 #    Inspired by https://realpython.com/python-timer/                                                         #
 #                                                                                                             #
 ###############################################################################################################
-#    Copyright (C) <2020-2021>  <Kevin Scott>                                                                      #
+#    Copyright (C) <2020-2023>  <Kevin Scott>                                                                 #
 #                                                                                                             #
 #    This program is free software: you can redistribute it and/or modify it under the terms of the           #
 #    GNU General Public License as published by the Free Software Foundation, either Version 3 of the         #
@@ -20,6 +20,8 @@
 ###############################################################################################################
 
 import time
+import datetime as dt
+
 
 class TimerError(Exception):
     """  A custom exception used to report errors in use of Timer class.
@@ -31,6 +33,7 @@ class Timer():
         t.Start     - will start the timer.
         t.Elapsed   - will return the elapsed time since the time started.
         t.Stop      - will return the time since the time started and stop the timer.
+        t.rightNow  - will Returns the current date and time in the format HH:MM:SS, DD/MM/YYYY.
 
         The methods have been converted to property's, makes the syntax cleaner.
         The methods above Will raise an exception is there is an error.
@@ -42,7 +45,6 @@ class Timer():
     def __init__(self):
         self._start_time = None
 
-    @property
     def Start(self):
         """  Start a new timer.
         """
@@ -71,6 +73,14 @@ class Timer():
         _elapsed_time = time.perf_counter() - self._start_time
         self._start_time = None
         return self.formatSeconds(_elapsed_time)
+
+    @property
+    def rightNow(self):
+        """  Returns the current date and time in the format HH:MM:SS, DD/MM/YYYY.
+        """
+        mtime = dt.datetime.now()
+        return mtime.strftime("%H:%M:%S, %d/%m/%Y")
+
 
     def formatSeconds(self, seconds):
         """  Formats number of seconds into a human readable form i.e. hours:minutes:seconds

@@ -1,11 +1,11 @@
 ###############################################################################################################
-#    myLicense.py   Copyright (C) <2020-2021>  <Kevin Scott>                                                       #
+#    myLicense.py   Copyright (C) <2020-2023>  <Kevin Scott>                                                       #
 #                                                                                                             #
 #    Two methods to print out License information, one short and one long.                                    #
 #    One method to either print text to screen or a file.                                                     #
 #                                                                                                             #
 ###############################################################################################################
-#    Copyright (C) <2020-2021>  <Kevin Scott>                                                                      #
+#    Copyright (C) <2020-2023>  <Kevin Scott>                                                                      #
 #                                                                                                             #
 #    This program is free software: you can redistribute it and/or modify it under the terms of the           #
 #    GNU General Public License as published by the Free Software Foundation, either Version 3 of the         #
@@ -20,14 +20,19 @@
 #                                                                                                             #
 ###############################################################################################################
 
+from src.console import console
+
+from rich import print
+from rich.text import Text
+from rich.panel import Panel
 
 ########################################################################################### printSortLicense ######
 def printShortLicense(Name, Version):
-        print("")
-        print(f"{Name} {Version}   Copyright (C) 2020-2021  Kevin Scott")
-        print(f"This program comes with ABSOLUTELY NO WARRANTY; for details type `{Name} -l'.")
-        print("This is free software, and you are welcome to redistribute it under certain conditions.")
-        print("")
+    text = Text()
+    text.append(f"This program comes with ABSOLUTELY NO WARRANTY; for details type `{Name} -l'.\n")
+    text.append("This is free software, and you are welcome to redistribute it under certain conditions.")
+    console.print(Panel.fit(text, title=f"{Name} {Version}", subtitle="Copyright (C) 2023  Kevin Scott"))
+
 ########################################################################################### printLongLicense ######
 def printLongLicense(Name, Version):
     print(f"""
@@ -36,7 +41,7 @@ def printLongLicense(Name, Version):
     This program is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by
     the Free Software Foundation, either myVERSION 3 of the License, or
-    (at your option) any later myVERSION.
+    (at your option) any later VERSION.
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
